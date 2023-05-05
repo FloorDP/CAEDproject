@@ -14,7 +14,10 @@ options(scipen=999)
 
 # DATASET 1: ESM data: social interactions (yes or no + mode of communication)
 
-mywd= "C:/Users/floor/OneDrive/Documenten/MASTER/CAED" 
+#mywd= "C:/Users/floor/OneDrive/Documenten/MASTER/CAED" 
+mywd = "C:/Users/Gebruiker/Documents/Experimentele Psychologie/JAAR 2/Case studies"
+
+#mydata <- read.csv(str_glue(mywd,"/Study2_Wave1_ESMdata_Socinteract.csv")) 
 mydata <- read.csv(str_glue(mywd,"/Study2_Wave1_ESMdata_Socinteract.csv")) 
 mydata <- subset(mydata, select = c(id, communication, interaction))  
 
@@ -59,3 +62,88 @@ cronbach.alpha(Extraversion_alpha)
 #Loneliness 
 Loneliness_alpha <- data.frame(data[10:18])
 cronbach.alpha(Loneliness_alpha)
+
+################################################################################
+############# DESCRIPTIVE ANALYSIS #############################################
+## variabelen aanmaken (per participant, gemiddelde score voor elk construct)
+
+#score vr extraversie per participant
+data$Extraversion <- rowMeans(data[,c('bfi2s_1_t2', 'bfi2s_6_t2', 'bfi2s_11_t2', 'bfi2s_16_t2', 'bfi2s_21_t2', 'bfi2s_26_t2',)], na.rm=TRUE)
+
+#score vr loneliness per participant 
+data$Loneliness <- rowMeans (data[,c('uls_1_t2', 'uls_2_t2',  'uls_3_t2',  'uls_4_t2',  'uls_5_t2',  'uls_6_t2',  'uls_7_t2',  'uls_8_t2',  'uls_9_t2',)], na.rm=TRUE)
+
+#interaction: eerst: enkel degene includeren die minstens 5 keer '1' (ja) antwoordden? 
+
+#interaction: modus berekenen per participant 
+
+#communication: modus berekenen per participant 
+
+################################################################################
+mean(data$Extraversion)  
+sd(data$Extraversion)    
+
+mean(data$Loneliness)
+sd(data$Loneliness)
+
+mean(data$interaction)
+sd(data$interaction)
+
+mean(data$communication)
+sd(data$communication)
+
+################################################################################
+# correlatiematrix
+data = data %>% select(Extraversion, Loneliness, interaction, communication)   
+install.packages("GGally")
+library(GGally)
+
+res <- cor(data, use = "complete.obs")                          
+round(res, 2)
+
+# correlaties significant?
+install.packages("Hmisc")
+library("Hmisc")
+p_values <- rcorr(as.matrix(data))   #p values of the correlation matrix
+print(p_values)
+
+ggcorr(data,palette = "RdBu" ,label=TRUE,digits=3, label_color = "black"
+         , label_round=2, hjust=0.8)
+
+################################################################################
+## main analysis 
+
+# MODEL 1: hoofd effecten   
+Lm1 = lm(Loneliness ~ Extraversion + interaction + communication, data = data) 
+summary(Lm1) 
+confint(Lm1)
+
+# MODEL 2: moderatie 
+Lm2 = lm(Loneliness ~ Extraversion, Extraversion:Interaction, Extraversion:Communication, data = data) 
+summary(Lm2)
+confint(Lm2)
+
+# MODEL 3: mediatie 
+Lm3 = lm(Loneliness ~ Extraversion, data = data)
+summary(Lm3)
+confint(Lm3)
+
+Lm4 = lm(Interaction ~ Extraversion, data = data)     #pijl van extraversie nr interactie
+summary(Lm4)
+confint(Lm4)
+Lm5 = lm(communication ~ Extraversion, data = data)   #pijl van extraversie nr communicatie 
+summary(Lm5)
+confint(Lm5)
+
+Lm6 = lm(Loneliness ~ Interaction, data = data)       #pijl van interactie nr loneliness 
+summary(Lm6)
+confint(Lm6)
+Lm7 = lm(Loneliness ~ communication, data = data )    #pijl van communicatie nr loneliness 
+summary(Lm7)
+confint(Lm7)
+
+
+
+
+
+
