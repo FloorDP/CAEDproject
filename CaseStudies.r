@@ -65,7 +65,7 @@ cronbach.alpha(Loneliness_alpha)
 
 ################################################################################
 ############# DESCRIPTIVE ANALYSIS #############################################
-## variabelen aanmaken (per participant, gemiddelde score voor elk construct)
+## create variables (per participant, mean score for each construct)
 
 #score vr extraversie per participant
 data$Extraversion <- rowMeans(data[,c('bfi2s_1_t2', 'bfi2s_6_t2', 'bfi2s_11_t2', 'bfi2s_16_t2', 'bfi2s_21_t2', 'bfi2s_26_t2',)], na.rm=TRUE)
