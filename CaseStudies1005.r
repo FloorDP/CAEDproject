@@ -6,6 +6,9 @@
 #load packages
 library(pacman)
 library(ltm)
+library(reshape2)
+library(Rmisc)
+
 p_load( semTools,haven,ggplot2,plotly,tidyr,dplyr,RPostgreSQL, RPostgres,magrittr,jsonlite,purrr, stringr,anytime,lubridate,
         psych,e1071,lmerTest, afex, effectsize,car,lmerTest,sjstats,mice, insight,readxl)
 set.seed(123)
@@ -35,8 +38,13 @@ mydata_trait <- subset(mydata_trait, select = c(id,
                                                 bfi2s_1_t2, bfi2s_6_t2, bfi2s_11_t2, bfi2s_16_t2, bfi2s_21_t2, bfi2s_26_t2,
                                                 uls_1_t2, uls_2_t2,  uls_3_t2,  uls_4_t2,  uls_5_t2,  uls_6_t2,  uls_7_t2,  uls_8_t2,  uls_9_t2))
 
-# merge datasets of interaction/communiation and BFI/ULS
+# merge datasets of interaction/communication and BFI/ULS
 data = merge(x = mydata, y = mydata_trait, by = "id") 
+
+#factorize relevant variables
+#data$id <- as.factor(data$id)
+#data$communication <- as.factor(data$communication)
+#data$interaction <- as.factor(data$interaction)
 
 # remove missing data (NA) --> exlude participants who did not fill in the BFI and ULS
 data <- na.omit(data)
@@ -85,10 +93,10 @@ cronbach.alpha(Loneliness_alpha)
 ############# DESCRIPTIVE ANALYSIS #############################################
 ## variabelen aanmaken (per participant, gemiddelde score voor elk construct)
 
-#score vr extraversie per participant
+#Extraversion score per participant
 data$Extraversion <- data$bfi2s_1_t2 + data$bfi2s_6_t2 + data$bfi2s_11_t2 + data$bfi2s_16_t2 + data$bfi2s_21_t2 + data$bfi2s_26_t2
 
-#score vr loneliness per participant 
+#Loneliness score per participant 
 data$Loneliness <- data$uls_1_t2 + data$uls_2_t2 + data$uls_3_t2 + data$uls_4_t2 + data$uls_5_t2 + data$uls_6_t2 + data$uls_7_t2 + data$uls_8_t2 + data$uls_9_t2 
 
 #interaction: Calculate how often participants indicated to have interaction
@@ -144,6 +152,9 @@ ggcorr(data,palette = "RdBu" ,label=TRUE,digits=3, label_color = "black"
 
 ################################################################################
 ## main analysis 
+
+#Linear mixed models: converge data to long format
+
 
 # MODEL 1: hoofd effecten   
 Lm1 = lm(Loneliness ~ Extraversion + interaction + communication, data = data) 
