@@ -153,35 +153,36 @@ ggcorr(data,palette = "RdBu" ,label=TRUE,digits=3, label_color = "black"
 ################################################################################
 ## main analysis 
 
-#Linear mixed models: converge data to long format
 
-
-# MODEL 1: hoofd effecten   
+# MODEL 1: main effects 
 Lm1 = lm(Loneliness ~ Extraversion + interaction + communication, data = data) 
 summary(Lm1) 
 confint(Lm1)
 
-# MODEL 2: moderatie 
+# MODEL 2: moderation 
 Lm2 = lm(Loneliness ~ Extraversion + interaction + communication + Extraversion:interaction + Extraversion:communication, data = data) 
 summary(Lm2)
 confint(Lm2)
 
-# MODEL 3: mediatie 
+# MEDIATION
+#Step 1: direct effect
 Lm3 = lm(Loneliness ~ Extraversion, data = data)
 summary(Lm3)
 confint(Lm3)
 
-Lm4 = lm(interaction ~ Extraversion, data = data)     #pijl van extraversie nr interactie
+#Step 2: effect of extraversion on communication/interaction (mediator?)
+Lm4 = lm(interaction ~ Extraversion, data = data)     
 summary(Lm4)
 confint(Lm4)
-Lm5 = lm(communication ~ Extraversion, data = data)   #pijl van extraversie nr communicatie 
+Lm5 = lm(communication ~ Extraversion, data = data)  
 summary(Lm5)
 confint(Lm5)
 
-Lm6 = lm(Loneliness ~ Interaction, data = data)       #pijl van interactie nr loneliness 
+#Step 3 + 4: Regress loneliness on mediator and extraversion
+Lm6 = lm(Loneliness ~ interaction + Extraversion, data = data)       
 summary(Lm6)
 confint(Lm6)
-Lm7 = lm(Loneliness ~ communication, data = data )    #pijl van communicatie nr loneliness 
+Lm7 = lm(Loneliness ~ communication + Extraversion, data = data )  
 summary(Lm7)
 confint(Lm7)
 
