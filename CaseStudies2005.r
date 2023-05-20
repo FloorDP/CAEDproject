@@ -134,6 +134,9 @@ Lm2 = lm(Loneliness ~ Extraversion * communication, data = data)
 summary(Lm2)
 confint(Lm2)
 
+# MODEL COMPARISON
+anova(Lm1, Lm2)
+
 library(interactions)
 interactions::interact_plot(Lm2, "Extraversion", modx = "communication")
 
