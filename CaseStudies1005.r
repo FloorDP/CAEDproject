@@ -79,7 +79,7 @@ data[ , reverse_cols] = 6 - data[ , reverse_cols]
 ## Floor: communication en interaction zijn discrete variabelen met 2 categorieën
 # gemiddelde lijkt me minder zinvol, misschien de modus (meest voorkomende categorie)
 
-# 1) INTERNE CONSISTENCTY + RELIABILITY: Crohnbachs alpha
+# 1) INTERNE CONSISTENCY + RELIABILITY: Crohnbachs alpha
 
 #Extraversion 
 Extraversion_alpha <- data.frame(data[5:10])
@@ -91,7 +91,6 @@ cronbach.alpha(Loneliness_alpha)
 
 ################################################################################
 ############# DESCRIPTIVE ANALYSIS #############################################
-## variabelen aanmaken (per participant, gemiddelde score voor elk construct)
 
 #Extraversion score per participant
 data$Extraversion <- data$bfi2s_1_t2 + data$bfi2s_6_t2 + data$bfi2s_11_t2 + data$bfi2s_16_t2 + data$bfi2s_21_t2 + data$bfi2s_26_t2
