@@ -8,7 +8,7 @@ library(pacman)
 library(ltm)
 library(reshape2)
 library(Rmisc)
-
+library(lavaan
 p_load( semTools,haven,ggplot2,plotly,tidyr,dplyr,RPostgreSQL, RPostgres,magrittr,jsonlite,purrr, stringr,anytime,lubridate,
         psych,e1071,lmerTest, afex, effectsize,car,lmerTest,sjstats,mice, insight,readxl)
 set.seed(123)
@@ -239,3 +239,18 @@ confint(Lm12)
 #                      mediator="communication" # Name of the m variable
 # )
 # summary(mediation) # No mediation
+
+#try it with lavaan
+model212<-'
+level:1
+interaction~1
+level:2
+Loneliness~b*interaction + c*Extraversion
+interaction~a*Extraversion
+#indirect and total effects
+ab:=a*b
+total:=ab+c'
+
+fit212<- sem(model212, data=data, cluster="id")
+summary(fit212)
+lavInspect(fit212, icc)
