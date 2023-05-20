@@ -8,12 +8,12 @@ library(pacman)
 library(ltm)
 library(reshape2)
 library(Rmisc)
-library(lavaan
+library(lavaan)
+library(emmeans)
 p_load( semTools,haven,ggplot2,plotly,tidyr,dplyr,RPostgreSQL, RPostgres,magrittr,jsonlite,purrr, stringr,anytime,lubridate,
         psych,e1071,lmerTest, afex, effectsize,car,lmerTest,sjstats,mice, insight,readxl)
-set.seed(123)
+
 options(contrasts = c("contr.sum","contr.poly"))
-options(scipen=999)
 
 #import datasets, available at https://osf.io/6kzx3/
 
