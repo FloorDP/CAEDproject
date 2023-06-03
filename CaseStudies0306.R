@@ -228,7 +228,7 @@ summary(mediation_person)
 # ACME (Average Causal Mediation Effects) should be significant (yes) --> Mediation
 
 
-# IN PERSON
+# CHAT/PHONE
 # Mediator model
 Med3 = lm(communication ~ Extraversion, data = data_chatphone)
 
