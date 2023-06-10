@@ -8,3 +8,5 @@ we encountered how we adressed these problems.
 *Authors*: Britt Di Vita, Stephanie Van De Walle & Floor Depestele
 
 *Data*: The EMOTIONS Project: : Social interactions and emotions during the COVID-19 pandemic (https://osf.io/6kzx3/)
+
+*Goal*: Examine the moderating and mediating role of social interactions during the COVID-19 pandemic on the relationship between extraversion and loneliness
