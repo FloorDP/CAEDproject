@@ -165,19 +165,20 @@ data_chatphone$communication <- ifelse(data_chatphone$communication ==2, 1,0)
 # ------------------------------------------------------------------------------
 # MEDIATION (IN PERSON COMMUNICATION)
 
-#Step 1: direct effect --> predictor should predict the outcome                         # YES
+#Step 1: total effect (c) --> predictor should predict the outcome                         # YES
 Lm_med1 = lm(Loneliness ~ Extraversion, data = data_inperson)
 Anova(Lm_med1, type = "III")
 summary(Lm_med1)
 confint(Lm_med1)
 
-#Step 2: effect of extraversion on communication --> predictor should predict the mediator
+#Step 2: effect of extraversion on communication --> predictor should predict the mediator (path a)
 Lm_med2 = glm(communication ~ Extraversion, data = data_inperson, family = binomial)    # YES
 Anova(Lm_med2, type = "III")
 summary(Lm_med2)
 confint(Lm_med2)
 
-#Step 3: Regress loneliness on mediator and extraversion --> mediator should predict the outcome
+#Step 3 +4: Regress loneliness on mediator and extraversion --> mediator should predict the outcome (path b)
+# path c': effect of extraversion on loneliness, while controlling for communication
 Lm_med3 = lm(Loneliness ~ communication + Extraversion, data = data_inperson )          # YES
 Anova(Lm_med3, type = "III")
 summary(Lm_med3)
@@ -186,19 +187,20 @@ confint(Lm_med3)
 # ------------------------------------------------------------------------------
 # MEDIATION (ONLINE COMMUNICATION)
 
-#Step 1: direct effect --> predictor should predict the outcome                           # YES
+#Step 1: total effect (c) --> predictor should predict the outcome                            # YES
 Lm_medonl1 = lm(Loneliness ~ Extraversion, data = data_chatphone)
 Anova(Lm_medonl1, type = "III")
 summary(Lm_medonl1)
 confint(Lm_medonl1)
 
-#Step 2: effect of extraversion on communication --> predictor should predict the mediator
+#Step 2: effect of extraversion on communication --> predictor should predict the mediator (path a)
 Lm_medonl2 = glm(communication ~ Extraversion, data = data_chatphone, family = binomial)  # YES
 Anova(Lm_medonl2, type = "III")
 summary(Lm_medonl2)
 confint(Lm_medonl2)
 
-#Step 3: Regress loneliness on mediator and extraversion --> mediator should predict the outcome
+#Step 3 +4: Regress loneliness on mediator and extraversion --> mediator should predict the outcome (path b)
+# path c': effect of extraversion on loneliness, while controlling for communication
 Lm_medonl3 = lm(Loneliness ~ communication + Extraversion, data = data_chatphone )        # Marginally significant
 Anova(Lm_medonl3, type = "III")
 summary(Lm_medonl3)
