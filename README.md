@@ -12,7 +12,7 @@ we encountered how we adressed these problems.
 *Goal*: Examine the moderating and mediating role of social interactions during the COVID-19 pandemic on the relationship between extraversion and loneliness
 
 *Variables of interest*:
-- Extraversion: continuous variable (predictor
+- Extraversion: continuous variable (predictor)
 - Loneliness: continuous variable (outcome)
 - Communication: categorical variable with 3 levels (moderator/mediator)
                   0 : no communication,
