@@ -15,6 +15,6 @@ we encountered how we adressed these problems.
 - Extraversion: continuous variable (predictor
 - Loneliness: continuous variable (outcome)
 - Communication: categorical variable with 3 levels (moderator/mediator)
-                  0 : no communication
-                  1 : in-person communication
+                  0 : no communication,
+                  1 : in-person communication,
                   2 : communication via chat or phone
